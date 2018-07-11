@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
+  <title>Sistem Informasi Catur - Tambah Pemain</title>
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/AdminLTE.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/_all-skins.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dataTables.bootstrap.css')}}">
+
+</head>
+
+<body class="hold-transition skin-blue layout-top-nav">
+  <div class="wrapper">
+
+    <header class="main-header">
+      <nav class="navbar navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a href="/" class="navbar-brand">Sistem Informasi <b>Catur</b></a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="content-wrapper">
+      <div class="container">  
+        <section class="content">
+          <div class="box box-info">
+            <div class="box-header with-border">
+            	<center>
+            		<h3 class="box-title">Tambah Pemain Catur</h3>
+            	</center>
+            </div>
+
+            <form class="form-horizontal" method="POST" action="/add_pemain_save" enctype="multipart/form-data">
+              <div class="box-body">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Nama</label>
+
+                  <div class="col-sm-10">
+                    <input name="nama_pemain" type="text" class="form-control" placeholder="Nama Pemain" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Jenis Kelamin</label>
+
+                  <div class="col-sm-10">
+                    <select class="form-control" id="pil_jk" name="jenis_kelamin" required>
+                      <option value="L">Pria</option>
+                      <option value="W">Wanita</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Tempat Lahir</label>
+
+                  <div class="col-sm-10">
+                    <input name="tempat_lahir" type="text" class="form-control" placeholder="Tempat lahir" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Tanggal Lahir</label>
+
+                  <div class="col-sm-10">
+                    <input name="tanggal_lahir" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" required>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Alamat</label>
+
+                  <div class="col-sm-10">
+                    <textarea name="alamat" class="form-control" placeholder="alamat anda" autocomplete="off" required></textarea>
+                  </div>
+                </div>
+              
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Telepon</label>
+
+                  <div class="col-sm-10">
+                    <input name="telepon" type="text" class="form-control" placeholder="telepon" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Kode Pos</label>
+
+                  <div class="col-sm-10">
+                    <input name="kode_pos" type="text" class="form-control" placeholder="kode pos anda" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Email</label>
+
+                  <div class="col-sm-10">
+                    <input name="email" type="text" class="form-control" placeholder="email" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Gelar</label>
+
+                  <div class="col-sm-10">
+                    <input type="checkbox" name="GM" value="GM" />GM
+                    <input type="checkbox" name="IM" value="IM" />IM
+                    <input type="checkbox" name="FM" value="FM" />FM
+                    <input type="checkbox" name="CM" value="CM" />CM
+                    <input type="checkbox" name="WGM" value="WGM" />WGM
+                    <input type="checkbox" name="WIM" value="WIM" />WIM
+                    <input type="checkbox" name="WFM" value="WFM" />WFM
+                    <input type="checkbox" name="WCM" value="WCM" />WCM
+                    <input type="checkbox" name="MN" value="MN" />MN
+                    <input type="checkbox" name="MP" value="MP" />MP
+                    <input type="checkbox" name="MNW" value="WNW" />WNW
+                    <input type="checkbox" name="MPW" value="MPW" />MPW
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">ID Fide</label>
+
+                  <div class="col-sm-10">
+                    <input name="id_fide" type="text" class="form-control" placeholder="ID fide anda" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Rating Fide</label>
+
+                  <div class="col-sm-10">
+                    <input name="rating_fide" type="text" class="form-control" placeholder="sesuaikan rating fide anda" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Rating nasional</label>
+
+                  <div class="col-sm-10">
+                    <input name="rating_national" type="text" class="form-control" placeholder="Isi sesuai rating Anda skala Nasional" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Pemprov</label>
+
+                  <div class="col-sm-10">
+                    <select class="form-control" name="pemprov" id="prov">
+                        {% for baris in provinsi %}
+                          <option value="{{ baris[0] }}">{{ baris[1] }}</option>
+                        {% endfor %}
+                    
+                  </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Catatan Prestasi</label>
+
+                  <div class="col-sm-10">
+                    <textarea name="data_prestasi" type="text" class="form-control" placeholder="catatan prestasi anda" autocomplete="off" required></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Foto</label>
+
+                  <div class="col-sm-10">
+                    <input  type="file" class="form-control" name="photo" required>
+                    
+                  </div>
+                </div>
+                
+
+
+              </div>
+              <!-- akhir box body-->
+              <div class="box-footer">
+                <a href="/utama"><button type="button" class="btn btn-default">Cancel</button></a>
+                <input name="save" type="submit" class="btn btn-info pull-right" value="Save">
+              </div>
+
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 0.1
+        </div>
+      </div>
+    </footer>
+  </div>
+  
+
+  <script src="{{ url_for('static', filename='js/jquery-2.2.3.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/app.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.bootstrap.min.js')}}"></script>
+
+  <script>
+    $(function () {
+      $("#dataphone").DataTable();
+      
+    });
+  </script>
+
+</body>
+</html>

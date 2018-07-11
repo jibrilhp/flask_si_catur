@@ -5,25 +5,29 @@ Created on Jan 10, 2017
 '''
 
 from flask import Flask, flash, render_template, redirect, url_for, request, session
+from werkzeug.utils import secure_filename
 from module.database import Database
 import flask
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'user_photos/'
 app.secret_key = "sabebdeh"
 db = Database()
 
 @app.route('/')
 def index():
-    data = db.read(None)
-
-    return render_template('index.html', data = data)
+    return render_template('index.html')
 
 @app.route('/utama')
 def utama():
-    if session['login_success'] != True:
-        return redirect(url_for('login'))  #apakah udah login? kalau belum silahkan login dulu
-        
-    data = db.read(None)
+    try:
+        if session['login_success'] != True:
+            return redirect(url_for('login'))  #apakah udah login? kalau belum silahkan login dulu
+    except:
+        flash('silahkan login terlebih dahulu!')
+        return redirect(url_for('login'))  
+
+    data = db.read_pemain(None)
 
     if session['sebagai'] == 0:
         return render_template('utama.html', data = data) #utama, sebagai admin bisa edit dan ngatur semua
@@ -74,7 +78,11 @@ def login():
             flash("Maaf username atau password anda salah")
             return redirect(url_for('login'))
     else:
-        return render_template('login.html')
+        try:
+            if session['login_success'] == True:
+                return redirect(url_for('utama')) 
+        except:
+            return render_template('login.html')
 
 @app.route('/register', methods = ['GET','POST'])
 def register():
@@ -101,27 +109,140 @@ def register():
             return render_template('register.html')
     else:
         return render_template('register.html')
+
+
+@app.route('/add_pemain/')
+def add_pemain():
+    try:
+        if session['login_success'] != True:
+            flash('silahkan login terlebih dahulu!')
+            return redirect(url_for('login'))  
+    except:
+        flash('silahkan login terlebih dahulu!')
+        return redirect(url_for('login'))  
     
+    provinsi = db.read(None)
 
-@app.route('/add/')
-def add():
-    return render_template('add.html')
+    return render_template('add_pemain.html',provinsi=provinsi)
 
-@app.route('/addphone', methods = ['POST', 'GET'])
-def addphone():
+@app.route('/add_wasit/')
+def add_wasit():
+    try:
+        if session['login_success'] != True:
+            flash('silahkan login terlebih dahulu!')
+            return redirect(url_for('login'))  
+    except:
+        flash('silahkan login terlebih dahulu!')
+        return redirect(url_for('login'))  
+    return render_template('add_wasit.html')
+
+@app.route('/add_pelatih')
+def add_pelatih():
+    try:
+        if session['login_success'] != True:
+            flash('silahkan login terlebih dahulu!')
+            return redirect(url_for('login'))  
+    except:
+        flash('silahkan login terlebih dahulu!')
+        return redirect(url_for('login'))  
+    return render_template('add_pelatih.html')
+
+@app.route('/add_pemain_save', methods = ['POST', 'GET'])
+def addpemain():
+    try:
+        if session['login_success'] != True:
+            flash('silahkan login terlebih dahulu!')
+            return redirect(url_for('login'))  
+    except:
+        flash('silahkan login terlebih dahulu!')
+        return redirect(url_for('login'))  
+
     if request.method == 'POST' and request.form['save']:
-        if db.insert(request.form):
-            flash("A new phone number has been added")
+        f = request.files['photo']
+        f.save('user_photos/' + secure_filename(f.filename))
+        lihat = f.filename
+
+        #Baca gelar2nya
+        if request.form.get('GM',None) == "GM":
+            GM = 1
         else:
-            flash("A new phone number can not be added")
+            GM = 0
+        
+        if request.form.get('IM',None) == "GM":
+            IM = 1
+        else:
+            IM = 0
+
+        if request.form.get('FM',None) == "FM":
+            FM = 1
+        else:
+            FM = 0
+        
+        if request.form.get('CM',None) == "CM":
+            CM = 1
+        else:
+            CM = 0
+        
+        if request.form.get('WGM',None) == "WGM":
+            WGM = 1
+        else:
+            WGM = 0
+        
+        if request.form.get('WIM',None) == "GM":
+            WIM = 1
+        else:
+            WIM = 0
+        
+        if request.form.get('WFM',None) == "WFM":
+            WFM = 1
+        else:
+            WFM = 0
+        
+        if request.form.get('WCM',None) == "WCM":
+            WCM = 1
+        else:
+            WCM = 0
+        
+        if request.form.get('MN',None) == "MN":
+            MN = 1
+        else:
+            MN = 0
+        
+        if request.form.get('MP',None) == "MP":
+            MP = 1
+        else:
+            MP = 0
+        
+        if request.form.get('MNW',None) == "MNW":
+            MNW = 1
+        else:
+            MNW = 0
+        
+        if request.form.get('MPW',None) == "MPW":
+            MPW = 1
+        else:
+            MPW = 0
+
+        terkini = db.up_pemain()
+        for xyr in terkini:
+            isi = xyr[0]
+        sekarang = "{0:0>3}".format(isi)
+        id_pemain = request.form.get('pemprov') + "/" + request.form.get('tanggal_lahir')[2:4] + sekarang       
+        gelar = [id_pemain,GM,IM,FM,CM,WGM,WIM,WFM,WCM,MN,MP,MNW,MPW]
+
+        if db.addpemain(request.form,lihat,id_pemain):
+            db.addgelar_pemain(gelar)
+            flash("Pemain berhasil ditambahkan")
+        else:
+            flash("Kesalahan terjadi")
             
-        return redirect(url_for('index'))
+        return redirect(url_for('utama'))
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('utama'))
 
 @app.route('/update/<int:id>/')
 def update(id):
-    data = db.read(id);
+    data = db.read(id)
     
     if len(data) == 0:
         return redirect(url_for('index'))
@@ -147,7 +268,7 @@ def updatephone():
     
 @app.route('/delete/<int:id>/')
 def delete(id):
-    data = db.read(id);
+    data = db.read(id)
     
     if len(data) == 0:
         return redirect(url_for('index'))
@@ -171,9 +292,28 @@ def deletephone():
     else:
         return redirect(url_for('index'))
 
+
+@app.route('/logout')
+def logout():
+    session.pop('login_success',None)
+    session.pop('username',None)
+    session.pop('sebagai',None)
+    session.pop('approve',None)
+    return redirect(url_for('index'))
+                
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('error.html')
+
+def cek_login():
+    try:
+        if session['login_success'] != True:
+            flash('silahkan login terlebih dahulu!')
+            return redirect(url_for('login'))  
+    except:
+        flash('silahkan login terlebih dahulu!')
+        return redirect(url_for('login'))  
+
 
 if __name__ == '__main__':
     print(" * Menjalankan program Sistem Informasi Catur")

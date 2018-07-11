@@ -10,22 +10,81 @@ class Database:
     def connect(self):
         return pymysql.connect("localhost","root","","catur" )
     
-    def read(self, id):
+    def read_pemain(self, nama):
         con = Database.connect(self)
         cursor = con.cursor()
         
         try: 
-            if id == None:
-                cursor.execute("SELECT * FROM phone_book order by name asc")
+            if nama == None:
+                cursor.execute("SELECT * FROM pemain order by nama_pemain asc")
             else: 
-                cursor.execute("SELECT * FROM phone_book where id = %s order by name asc", (id,))
+                cursor.execute("SELECT * FROM pemain where id = %s order by nama_pemain asc", (nama,))
 
             return cursor.fetchall()
         except:
             return ()
         finally:
             con.close()
+    
+    def up_pemain(self):
+        con = Database.connect(self)
+        cursor = con.cursor()
+
+        try:
+            cursor.execute("SELECT no FROM `pemain` order by no desc")
+            return cursor.fetchall()
+        except:
+            return ()
+        finally:
+            cursor.close()
+
+    def read(self,provinsi):
+        con = Database.connect(self)
+        #baca provinsi
+        cursor = con.cursor()
+
+        try:
+            if provinsi == None:
+                cursor.execute("SELECT * FROM provinsi")
+            else:
+                cursor.execute("SELECT * FROM provinsi WHERE kd_provinsi = %s",(provinsi))
             
+            return cursor.fetchall()
+        except:
+            return ()
+        finally:
+            con.close()
+
+    def addpemain(self,data,lihat,id_pemain):
+        con = Database.connect(self)
+        cursor = con.cursor()
+
+    
+        try:
+            cursor.execute("INSERT INTO pemain (fide_id, id_pemain, nama_pemain, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat, telepon, kode_pos, email, rating_fide, rating_national, pemprov, data_prestasi, foto, status) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(data['id_fide'],id_pemain,data['nama_pemain'],data['jenis_kelamin'],data['tempat_lahir'],data['alamat'],data['telepon'],data['kode_pos'],data['email'],data['rating_fide'],data['rating_national'],'Jakarta',data['data_prestasi'],lihat,'Aktif'))
+            con.commit()
+
+            return True
+        except:
+            con.rollback()
+            return False
+        finally:
+            con.close()
+
+
+
+    def addgelar_pemain(self,gelar):
+        con = Database.connect(self)
+        cursor = con.cursor()
+
+        try:
+            cursor.execute("INSERT INTO `gelar_pemain`(`id_pemain`, `gm`, `im`, `fm`, `cm`, `wgm`, `wim`, `wfm`, `wcm`, `mn`, `mp`, `mnw`, `mpw`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(gelar[0],gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],gelar[12],gelar[13]))
+        except:
+            con.rollback()
+            return False
+        finally:
+            con.close()
+
     def insert(self,data):
         con = Database.connect(self)
         cursor = con.cursor()
