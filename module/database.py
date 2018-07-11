@@ -31,10 +31,10 @@ class Database:
         cursor = con.cursor()
 
         try:
-            cursor.execute("SELECT no FROM `pemain` order by no desc")
+            cursor.execute("SELECT no FROM pemain order by no desc")
             return cursor.fetchall()
         except:
-            return ()
+            return []
         finally:
             cursor.close()
 
@@ -55,14 +55,16 @@ class Database:
         finally:
             con.close()
 
-    def addpemain(self,data,lihat,id_pemain):
+    def addpemain(self,data,lihat,id_pemain,gelar):
         con = Database.connect(self)
         cursor = con.cursor()
-
-    
+        print(("INSERT INTO gelar_pemain (id_pemain, gm, im, fm, cm, wgm, wim, wfm, wcm, mn, mp, mnw, mpw) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_pemain,gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],gelar[12])))
         try:
-            cursor.execute("INSERT INTO pemain (fide_id, id_pemain, nama_pemain, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat, telepon, kode_pos, email, rating_fide, rating_national, pemprov, data_prestasi, foto, status) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(data['id_fide'],id_pemain,data['nama_pemain'],data['jenis_kelamin'],data['tempat_lahir'],data['alamat'],data['telepon'],data['kode_pos'],data['email'],data['rating_fide'],data['rating_national'],'Jakarta',data['data_prestasi'],lihat,'Aktif'))
+            cursor.execute("INSERT INTO pemain (fide_id, id_pemain, nama_pemain, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat, telepon, kode_pos, email, rating_fide, rating_national, pemprov, data_prestasi, foto, status) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(data['id_fide'],id_pemain,data['nama_pemain'],data['jenis_kelamin'],data['tempat_lahir'],data['tanggal_lahir'],data['alamat'],data['telepon'],data['kode_pos'],data['email'],data['rating_fide'],data['rating_national'],data['pemprov'],data['data_prestasi'],lihat,'Aktif'))
+            cursor.execute("INSERT INTO gelar_pemain (id_pemain, gm, im, fm, cm, wgm, wim, wfm, wcm, mn, mp, mnw, mpw) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_pemain,gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],gelar[12]))
             con.commit()
+            
+            
 
             return True
         except:
@@ -71,14 +73,17 @@ class Database:
         finally:
             con.close()
 
-
-
+        
     def addgelar_pemain(self,gelar):
         con = Database.connect(self)
         cursor = con.cursor()
 
         try:
-            cursor.execute("INSERT INTO `gelar_pemain`(`id_pemain`, `gm`, `im`, `fm`, `cm`, `wgm`, `wim`, `wfm`, `wcm`, `mn`, `mp`, `mnw`, `mpw`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(gelar[0],gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],gelar[12],gelar[13]))
+            sql = "INSERT INTO gelar_pemain(id_pemain, gm, im, fm, cm, wgm, wim, wfm, wcm, mn, mp, mnw, mpw) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(gelar[0],gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],gelar[12],gelar[13])
+            print(sql)
+            cursor.execute("INSERT INTO gelar_pemain(id_pemain, gm, im, fm, cm, wgm, wim, wfm, wcm, mn, mp, mnw, mpw) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(gelar[0],gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],gelar[12],gelar[13]))
+            con.commit()
+            return True
         except:
             con.rollback()
             return False
@@ -167,7 +172,7 @@ class Database:
                 sebagai = 3
             
 
-            cursor.execute("INSERT INTO `pengguna`( `username`, `password`, `sebagai`) VALUES (%s,%s,%s)", (username,pwd,sebagai))
+            cursor.execute("INSERT INTO pengguna( username, password, sebagai) VALUES (%s,%s,%s)", (username,pwd,sebagai))
             con.commit()
 
             return True

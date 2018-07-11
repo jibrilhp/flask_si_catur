@@ -223,15 +223,23 @@ def addpemain():
         else:
             MPW = 0
 
+        isi =''
         terkini = db.up_pemain()
-        for xyr in terkini:
-            isi = xyr[0]
-        sekarang = "{0:0>3}".format(isi)
-        id_pemain = request.form.get('pemprov') + "/" + request.form.get('tanggal_lahir')[2:4] + sekarang       
-        gelar = [id_pemain,GM,IM,FM,CM,WGM,WIM,WFM,WCM,MN,MP,MNW,MPW]
+        if terkini != []:
+            for xyr in terkini:
+                isi = xyr[0]
+            sekarang = "{0:0>3}".format(isi)
+        else:
+            sekarang = "001"
 
-        if db.addpemain(request.form,lihat,id_pemain):
-            db.addgelar_pemain(gelar)
+        tgl = request.form.get('tanggal_lahir')
+        id_pemain = request.form.get('pemprov') + "/" + tgl[2:4] + sekarang       
+        gelar = [id_pemain,GM,IM,FM,CM,WGM,WIM,WFM,WCM,MN,MP,MNW,MPW]
+        
+
+
+        if db.addpemain(request.form,lihat,id_pemain,gelar):
+           
             flash("Pemain berhasil ditambahkan")
         else:
             flash("Kesalahan terjadi")
