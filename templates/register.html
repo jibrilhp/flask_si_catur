@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Daftarkan Diri Anda - Sistem Informasi Catur</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/static/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/main_sup.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+			<section class="content-header">
+				{% for message in get_flashed_messages()%}
+			<div class="alert alert-warning alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<strong>Perhatian! </strong>
+				{{ message }}
+			</div>
+				{% endfor%}
+			</section>
+		<div class="container-singup">
+			<div class="wrap-singup">
+				<div class="singup-pic js-tilt" data-tilt>
+					<img src="/static/login/images/img-01.png" alt="IMG">
+                </div>
+                <br>
+
+				<form class="singup-form validate-form" method="post" action="">
+				
+					<span class="singup-form-title">
+						Daftar Akun Baru
+					</span>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="username" placeholder="Username">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+                    </div>
+
+					<div class="wrap-input100 validate-input" >
+						<input class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="password2" placeholder="Retype your Password" >
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" >
+						<select class="input100" name="sebagai">
+							<option value="-">Pilih sebagai...</option>
+							<option value="admin">Admin (butuh persetujuan)</option>
+							<option value="pemain">Pemain</option>
+							<option value="pelatih">Pelatih</option>
+							<option value="wasit">Wasit</option>
+						</select> 
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-check-square-o" aria-hidden="true"></i>
+						</span>
+					</div>
+
+
+
+					<div class="container-singup-form-btn">
+
+					<input class="singup-form-btn" name="submit" type="submit" value="Register">
+
+					</div>
+
+					<div class="text-center p-t-12">
+						<span class="txt1">
+							Sudah punya akun?
+						</span>
+						<a class="txt2" href="/login">
+							Login
+						</a>
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/login/js/main.js"></script>
+
+</body>
+</html>
