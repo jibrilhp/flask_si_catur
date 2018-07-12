@@ -55,7 +55,43 @@
                 <h5>Telepon : <b>{{data[0][8]}}</b></h5>
                 <h5>Kode Pos : <b>{{data[0][9]}}</b></h5>
                 <h5>Email : <b>{{data[0][10]}}</b></h5>
-                <h5>Gelar : <b>isian</b></h5>
+                <h5>Gelar : <b> {% if data[0][18] != 0 %}
+                        <p>GM</p>
+                        {% endif %}
+                        {% if data[0][19] != 0 %}
+                        <p>IM</p>
+                        {% endif %}
+                        {% if data[0][20] != 0 %}
+                        <p>FM</p>
+                        {% endif %}
+                        {% if data[0][21] != 0 %}
+                        <p>CM</p>
+                        {% endif %}
+                        {% if data[0][22] != 0 %}
+                        <p>WGM</p>
+                        {% endif %}
+                        {% if data[0][23] != 0 %}
+                        <p>WIM</p>
+                        {% endif %}
+                        {% if data[0][24] != 0 %}
+                        <p>WFM</p>
+                        {% endif %}
+                        {% if data[0][25] != 0 %}
+                        <p>WCM</p>
+                        {% endif %}
+                        {% if data[0][26] != 0 %}
+                        <p>MN</p>
+                        {% endif %}
+                        {% if data[0][27] != 0 %}
+                        <p>MP</p>
+                        {% endif %}
+                        {% if data[0][28] != 0 %}
+                        <p>MNW</p>
+                        {% endif %}
+                        {% if data[0][29] != 0 %}
+                        <p>MPW</p>
+                        {% endif %}
+                  </b></h5>
                 <h5>ID Fide : <b>{{data[0][1]}}</b></h5>
                 <h5>Rating Fide : <b>{{data[0][11]}}</b></h5>
                 <h5>Rating National : <b>{{data[0][12]}}</b></h5>
@@ -63,6 +99,7 @@
                 <h5>Catatan Prestasi : <b>{{data[0][14]}}</b></h5>
                 <h5>Status : <b>{{data[0][16]}}</b></h5>
                 <a href="/utama" class="btn btn-primary" role="button">Kembali</a>
+                <hr>
             </div>
         </section>
       </div>

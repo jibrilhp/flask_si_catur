@@ -121,6 +121,23 @@ class Database:
         finally:
             con.close()
 
+    def delete_pemain(self,id):
+        con = Database.connect(self)
+        cursor = con.cursor()
+
+        try:
+            cursor.execute("DELETE FROM `pemain` WHERE `pemain`.`no` = %s",(id))
+            con.commit()
+
+            return True
+        except:
+            con.rollback()
+
+            return False
+        finally:
+            con.close()
+
+
     def check_login(self, cakupan):
         con = Database.connect(self)
         cursor = con.cursor()

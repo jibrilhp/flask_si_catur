@@ -262,18 +262,18 @@ def viewpemain(no):
 
 
 
-@app.route('/update/<int:id>/')
-def update(id):
-    data = db.read(id)
+@app.route('/update_pemain/<int:id>/')
+def update_pemain(id):
+    data = db.read_pemain(id)
     
     if len(data) == 0:
-        return redirect(url_for('index'))
+        return redirect(url_for('utama'))
     else:
         session['update'] = id
-        return render_template('update.html', data = data)
+        return render_template('update_pemain.html', data = data)
 
-@app.route('/updatephone', methods = ['POST'])
-def updatephone():
+@app.route('/update_pemain_save', methods = ['POST'])
+def updatepemain_save():
     if request.method == 'POST' and request.form['update']:
         
         if db.update(session['update'], request.form):
@@ -288,31 +288,17 @@ def updatephone():
     else:
         return redirect(url_for('index'))
     
-@app.route('/delete/<int:id>/')
-def delete(id):
-    data = db.read(id)
+@app.route('/delete_pemain/<int:id>/')
+def delete_pemain(id):
+    data = db.delete_pemain(id)
     
-    if len(data) == 0:
-        return redirect(url_for('index'))
+    if data:
+        flash('Data telah dihapus')
+        return redirect(url_for('utama'))
     else:
-        session['delete'] = id
-        return render_template('delete.html', data = data)
+        flash('kesalahan terjadi')
+        return redirect(url_for('utama'))
 
-@app.route('/deletephone', methods = ['POST'])
-def deletephone():
-    if request.method == 'POST' and request.form['delete']:
-        
-        if db.delete(session['delete']):
-            flash('A phone number has been deleted')
-           
-        else:
-            flash('A phone number can not be deleted')
-        
-        session.pop('delete', None)
-        
-        return redirect(url_for('index'))
-    else:
-        return redirect(url_for('index'))
 
 
 @app.route('/logout')
