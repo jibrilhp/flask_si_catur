@@ -16,9 +16,9 @@ class Database:
         
         try: 
             if nama == None:
-                cursor.execute("SELECT * FROM pemain order by nama_pemain asc")
+                cursor.execute("SELECT pemain.no , pemain.fide_id , pemain.id_pemain , pemain.nama_pemain , pemain.jenis_kelamin , pemain.tempat_lahir , pemain.tanggal_lahir , pemain.alamat , pemain.telepon , pemain.kode_pos , pemain.email , pemain.rating_fide , pemain.rating_national , provinsi.nm_provinsi , pemain.data_prestasi , pemain.foto , pemain.status , pemain.tanggal, gelar_pemain.gm, gelar_pemain.im,gelar_pemain.fm,gelar_pemain.cm,gelar_pemain.wgm,gelar_pemain.wim,gelar_pemain.wfm,gelar_pemain.wcm,gelar_pemain.wcm,gelar_pemain.mn,gelar_pemain.mp,gelar_pemain.mnw,gelar_pemain.mpw  FROM  (( pemain INNER JOIN gelar_pemain ON pemain.id_pemain = gelar_pemain.id_pemain) INNER JOIN provinsi ON pemain.pemprov = provinsi.kd_provinsi) order by pemain.nama_pemain asc")
             else: 
-                cursor.execute("SELECT * FROM pemain where id = %s order by nama_pemain asc", (nama,))
+                cursor.execute("SELECT pemain.no , pemain.fide_id , pemain.id_pemain , pemain.nama_pemain , pemain.jenis_kelamin , pemain.tempat_lahir , pemain.tanggal_lahir , pemain.alamat , pemain.telepon , pemain.kode_pos , pemain.email , pemain.rating_fide , pemain.rating_national , provinsi.nm_provinsi , pemain.data_prestasi , pemain.foto , pemain.status , pemain.tanggal, gelar_pemain.gm, gelar_pemain.im,gelar_pemain.fm,gelar_pemain.cm,gelar_pemain.wgm,gelar_pemain.wim,gelar_pemain.wfm,gelar_pemain.wcm,gelar_pemain.wcm,gelar_pemain.mn,gelar_pemain.mp,gelar_pemain.mnw,gelar_pemain.mpw  FROM  (( pemain INNER JOIN gelar_pemain ON pemain.id_pemain = gelar_pemain.id_pemain) INNER JOIN provinsi ON pemain.pemprov = provinsi.kd_provinsi) where pemain.no = %s order by nama_pemain asc", (nama,))
 
             return cursor.fetchall()
         except:
@@ -66,23 +66,6 @@ class Database:
             
             
 
-            return True
-        except:
-            con.rollback()
-            return False
-        finally:
-            con.close()
-
-        
-    def addgelar_pemain(self,gelar):
-        con = Database.connect(self)
-        cursor = con.cursor()
-
-        try:
-            sql = "INSERT INTO gelar_pemain(id_pemain, gm, im, fm, cm, wgm, wim, wfm, wcm, mn, mp, mnw, mpw) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(gelar[0],gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],gelar[12],gelar[13])
-            print(sql)
-            cursor.execute("INSERT INTO gelar_pemain(id_pemain, gm, im, fm, cm, wgm, wim, wfm, wcm, mn, mp, mnw, mpw) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(gelar[0],gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],gelar[12],gelar[13]))
-            con.commit()
             return True
         except:
             con.rollback()

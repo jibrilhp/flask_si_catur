@@ -4,7 +4,7 @@ Created on Jan 10, 2017
 @author: hanif, Jibril Hartri
 '''
 
-from flask import Flask, flash, render_template, redirect, url_for, request, session
+from flask import Flask, flash, render_template, redirect, url_for, request, session,send_from_directory
 from werkzeug.utils import secure_filename
 from module.database import Database
 import flask
@@ -30,6 +30,7 @@ def utama():
     data = db.read_pemain(None)
 
     if session['sebagai'] == 0:
+        
         return render_template('utama.html', data = data) #utama, sebagai admin bisa edit dan ngatur semua
 
     if session['sebagai'] == 1:
@@ -248,6 +249,19 @@ def addpemain():
     else:
         return redirect(url_for('utama'))
 
+@app.route('/view_pemain/<int:no>')
+def viewpemain(no):
+    data = db.read_pemain(no)
+
+    if len(data) == 0:
+        flash("Tidak ditemukan...")
+        return redirect(url_for('utama'))
+    else:
+        return render_template('view_pemain.html' ,data = data)
+
+
+
+
 @app.route('/update/<int:id>/')
 def update(id):
     data = db.read(id)
@@ -308,7 +322,11 @@ def logout():
     session.pop('sebagai',None)
     session.pop('approve',None)
     return redirect(url_for('index'))
-                
+
+@app.route('/foto/<path:path>')
+def send_userphotos(path):
+    return send_from_directory('user_photos/',path)
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('error.html')

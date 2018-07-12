@@ -64,10 +64,10 @@
                     <th>Nama Pemain</th>
                     <th>Jenis Kelamin</th>
                     <th>Gelar</th>
-                    <th>Klasifikasi</th>
                     <th>Tempat, tanggal lahir</th>
                     <th>Alamat</th>
                     <th>Pengrov Percasi</th>
+                    <th>Telepon</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -86,16 +86,62 @@
                     <td></td>
                   </tr>
                     {% else %}
-                  <tr>
+                  
                       {% for row in data %}
-                    <td>{{ row[1] }}</td>
-                    <td>{{ row[2] }}</td>
+                    <tr>
+                   
+                    <td><a href="/view_pemain/{{row[0]}}">{{ row[2] }}</a></td>
                     <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>
+                      {% if row[18] != 0 %}
+                      <p>GM</p>
+                      {% endif %}
+                      {% if row[19] != 0 %}
+                      <p>IM</p>
+                      {% endif %}
+                      {% if row[20] != 0 %}
+                      <p>FM</p>
+                      {% endif %}
+                      {% if row[21] != 0 %}
+                      <p>CM</p>
+                      {% endif %}
+                      {% if row[22] != 0 %}
+                      <p>WGM</p>
+                      {% endif %}
+                      {% if row[23] != 0 %}
+                      <p>WIM</p>
+                      {% endif %}
+                      {% if row[24] != 0 %}
+                      <p>WFM</p>
+                      {% endif %}
+                      {% if row[25] != 0 %}
+                      <p>WCM</p>
+                      {% endif %}
+                      {% if row[26] != 0 %}
+                      <p>MN</p>
+                      {% endif %}
+                      {% if row[27] != 0 %}
+                      <p>MP</p>
+                      {% endif %}
+                      {% if row[28] != 0 %}
+                      <p>MNW</p>
+                      {% endif %}
+                      {% if row[29] != 0 %}
+                      <p>MPW</p>
+                      {% endif %}
+
+
+                    </td>
+                    <td>{{ row[5] }}, {{ row[6] }}</td>
+                    <td>{{ row[7] }}</td>
+                    <td>{{ row[13] }}</td>
+                    <td>{{ row[8] }}</td>
                     <td align="center">
-                      <a href="/update/{{ row[0]}}">
+                      <a href="/update_pemain/{{ row[0]}}">
                         <button type="button" class="btn btn-sm btn-warning btn-flat" title="Update"><span class="glyphicon glyphicon-pencil"></span></button>
                       </a>
-                      <a href="/delete/{{ row[0]}}">
+                      <a href="/delete_pemain/{{ row[0]}}">
                         <button type="button" class="btn btn-sm btn-danger btn-flat" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
                       </a>
                     </td>
