@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   
-  <title>Sistem Informasi Catur - Update Pemain</title>
+  <title>Sistem Informasi Catur - Tambah Pemain</title>
   
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/AdminLTE.min.css')}}">
@@ -33,18 +33,17 @@
           <div class="box box-info">
             <div class="box-header with-border">
             	<center>
-            		<h3 class="box-title">Update Pemain Catur</h3>
+            		<h3 class="box-title">Tambah Pemain Catur</h3>
             	</center>
             </div>
 
-            <form class="form-horizontal" method="POST" action="/update_pemain_save" enctype="multipart/form-data">
-              <input type="hidden" name="id_pemain" value="{{data[0][2]}}">
+            <form class="form-horizontal" method="POST" action="/add_pemain_save" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Nama</label>
 
                   <div class="col-sm-10">
-                    <input name="nama_pemain" type="text" class="form-control" placeholder="Nama Pemain" autocomplete="off" value="{{data[0][3]}}" required>
+                    <input name="nama_pemain" type="text" class="form-control" placeholder="Nama Pemain" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -63,7 +62,7 @@
                   <label class="col-sm-2 control-label">Tempat Lahir</label>
 
                   <div class="col-sm-10">
-                    <input name="tempat_lahir" type="text" class="form-control" placeholder="Tempat lahir" autocomplete="off" value="{{data[0][5]}}" required>
+                    <input name="tempat_lahir" type="text" class="form-control" placeholder="Tempat lahir" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -71,7 +70,7 @@
                   <label class="col-sm-2 control-label">Tanggal Lahir</label>
 
                   <div class="col-sm-10">
-                    <input name="tanggal_lahir" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" required value="{{data[0][6]}}">
+                    <input name="tanggal_lahir" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" required>
                   </div>
                 </div>
                 
@@ -79,7 +78,7 @@
                   <label class="col-sm-2 control-label">Alamat</label>
 
                   <div class="col-sm-10">
-                    <textarea name="alamat" class="form-control" placeholder="alamat anda" autocomplete="off" required >{{data[0][7]}}</textarea>
+                    <textarea name="alamat" class="form-control" placeholder="alamat anda" autocomplete="off" required></textarea>
                   </div>
                 </div>
               
@@ -87,7 +86,7 @@
                   <label class="col-sm-2 control-label">Telepon</label>
 
                   <div class="col-sm-10">
-                    <input name="telepon" type="text" class="form-control" placeholder="telepon" autocomplete="off" required value="{{data[0][8]}}">
+                    <input name="telepon" type="text" class="form-control" placeholder="telepon" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -95,7 +94,7 @@
                   <label class="col-sm-2 control-label">Kode Pos</label>
 
                   <div class="col-sm-10">
-                    <input name="kode_pos" type="text" class="form-control" placeholder="kode pos anda" autocomplete="off" required value="{{data[0][9]}}">
+                    <input name="kode_pos" type="text" class="form-control" placeholder="kode pos anda" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -103,7 +102,7 @@
                   <label class="col-sm-2 control-label">Email</label>
 
                   <div class="col-sm-10">
-                    <input name="email" type="text" class="form-control" placeholder="email" autocomplete="off" required value="{{data[0][10]}}">
+                    <input name="email" type="text" class="form-control" placeholder="email" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -130,7 +129,7 @@
                   <label class="col-sm-2 control-label">ID Fide</label>
 
                   <div class="col-sm-10">
-                    <input name="id_fide" type="text" class="form-control" placeholder="ID fide anda" autocomplete="off" required value="{{data[0][1]}}">
+                    <input name="id_fide" type="text" class="form-control" placeholder="ID fide anda" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -138,7 +137,7 @@
                   <label class="col-sm-2 control-label">Rating Fide</label>
 
                   <div class="col-sm-10">
-                    <input name="rating_fide" type="text" class="form-control" placeholder="sesuaikan rating fide anda" autocomplete="off" required value="{{data[0][11]}}">
+                    <input name="rating_fide" type="text" class="form-control" placeholder="sesuaikan rating fide anda" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -146,13 +145,13 @@
                   <label class="col-sm-2 control-label">Rating nasional</label>
 
                   <div class="col-sm-10">
-                    <input name="rating_national" type="text" class="form-control" placeholder="Isi sesuai rating Anda skala Nasional" autocomplete="off" required value="{{data[0][12]}}">
+                    <input name="rating_national" type="text" class="form-control" placeholder="Isi sesuai rating Anda skala Nasional" autocomplete="off" required>
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Pemprov</label>
-                  <input type="hidden" name="pemprov_awal" value="{{data[0][13]}}">
+
                   <div class="col-sm-10">
                     <select class="form-control" name="pemprov" id="prov">
                         {% for baris in provinsi %}
@@ -167,7 +166,7 @@
                   <label class="col-sm-2 control-label">Catatan Prestasi</label>
 
                   <div class="col-sm-10">
-                    <textarea name="data_prestasi" type="text" class="form-control" placeholder="catatan prestasi anda" autocomplete="off" required >{{data[0][14]}}  </textarea>
+                    <textarea name="data_prestasi" type="text" class="form-control" placeholder="catatan prestasi anda" autocomplete="off" required></textarea>
                   </div>
                 </div>
 
@@ -175,22 +174,12 @@
                   <label class="col-sm-2 control-label">Foto</label>
 
                   <div class="col-sm-10">
-                    <input  type="file" class="form-control" name="photo" >
+                    <input  type="file" class="form-control" name="photo" required>
                     
                   </div>
                 </div>
                 
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Status</label>
-  
-                    <div class="col-sm-10">
-                        <select class="form-control" id="stat" name="status" required>
-                            <option value="Aktif">Aktif</option>
-                            <option value="Tidak Aktif">Tidak Aktif</option>
-                        </select>
-                    </div>
-                  </div>
+
 
               </div>
               <!-- akhir box body-->

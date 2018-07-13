@@ -5,6 +5,7 @@ Created on Jan 10, 2017
 '''
 
 import pymysql
+import datetime as dt
 
 class Database:
     def connect(self):
@@ -121,12 +122,41 @@ class Database:
         finally:
             con.close()
 
+    def update_pemain(self,id,data,gambar,gelar,provinsi):
+        con = Database.connect(self)
+        cursor = con.cursor()
+
+        id_pemain = data['id_pemain']
+        now = dt.datetime.now()
+        
+
+        try:
+            
+            #tambah ke tabel mutasi pemain , insert on update aja..
+            if gambar != 'ndak_ada':
+                cursor.execute("UPDATE  pemain  SET  fide_id =%s, nama_pemain =%s, jenis_kelamin =%s, tempat_lahir =%s, tanggal_lahir =%s, alamat =%s, telepon =%s, kode_pos =%s, email =%s, rating_fide =%s, rating_national =%s, pemprov =%s, data_prestasi =%s, foto =%s, status =%s WHERE no = %s ",(data['id_fide'],data['nama_pemain'],data['jenis_kelamin'],data['tempat_lahir'],data['tanggal_lahir'],data['alamat'],data['telepon'],data['kode_pos'],data['email'],data['rating_fide'],data['rating_national'],data['pemprov'],data['data_prestasi'],gambar,data['status'],id))
+                cursor.execute("UPDATE gelar_pemain SET gm=%s,im=%s,fm=%s,cm=%s,wgm=%s,wim=%s,wfm=%s,wcm=%s,mn=%s,mp=%s,mnw=%s,mpw=%s WHERE gelar_pemain.id_pemain = %s",(gelar[0],gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],id_pemain))
+                cursor.execute("INSERT INTO mutasi_pemain(id_pemain, nama, awal, akhir, tanggal) VALUES (%s,%s,%s,%s,%s)",(id_pemain,data['nama_pemain'],data['pemprov_awal'],provinsi,now))
+            else:
+                cursor.execute("UPDATE  pemain  SET  fide_id =%s, nama_pemain =%s, jenis_kelamin =%s, tempat_lahir =%s, tanggal_lahir =%s, alamat =%s, telepon =%s, kode_pos =%s, email =%s, rating_fide =%s, rating_national =%s, pemprov =%s, data_prestasi =%s, foto =%s, status =%s WHERE no = %s ",(data['id_fide'],data['nama_pemain'],data['jenis_kelamin'],data['tempat_lahir'],data['tanggal_lahir'],data['alamat'],data['telepon'],data['kode_pos'],data['email'],data['rating_fide'],data['rating_national'],data['pemprov'],data['data_prestasi'],gambar,data['status'],id))
+                cursor.execute("UPDATE gelar_pemain SET gm=%s,im=%s,fm=%s,cm=%s,wgm=%s,wim=%s,wfm=%s,wcm=%s,mn=%s,mp=%s,mnw=%s,mpw=%s WHERE gelar_pemain.id_pemain = %s",(gelar[0],gelar[1],gelar[2],gelar[3],gelar[4],gelar[5],gelar[6],gelar[7],gelar[8],gelar[9],gelar[10],gelar[11],id_pemain))
+                cursor.execute("INSERT INTO mutasi_pemain(id_pemain, nama, awal, akhir, tanggal) VALUES (%s,%s,%s,%s,%s)",(id_pemain,data['nama_pemain'],data['pemprov_awal'],provinsi,now))
+                
+
+            con.commit()
+            return True
+        except:
+            con.rollback()
+            return False
+        finally:
+            con.close()
+
     def delete_pemain(self,id):
         con = Database.connect(self)
         cursor = con.cursor()
 
         try:
-            cursor.execute("DELETE FROM `pemain` WHERE `pemain`.`no` = %s",(id))
+            cursor.execute("DELETE FROM  pemain  WHERE  pemain . no  = %s",(id))
             con.commit()
 
             return True

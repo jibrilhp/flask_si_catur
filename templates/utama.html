@@ -25,8 +25,17 @@
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="/utama">Beranda</a></li>
-            <li><a href="/exim">Import / Export Data</a></li>
-            <li><a href="/mutasi">Tabel Mutasi</a></li>
+           <!-- <li><a href="/exim">Import / Export Data</a></li>-->
+            
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tabel Mutasi
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/mutasi_pemain">Pemain</a></li>
+                <li><a href="/mutasi_pelatih">Pelatih</a></li>
+                <li><a href="/mutasi_wasit">Wasit</a></li>
+              </ul>
+            </li>
             <li><a href="/logout">Logout</a></li>
           </ul>
         </div>
@@ -153,6 +162,228 @@
             </div>
           </div>
         </section>
+
+        <section class="content">
+          <div class="box box-primary">
+            <div class="box-header">
+              <a href="/add_pelatih">
+              	<center>
+              		<button type="button" class="btn btn-primary btn-flat">
+              			<span class="glyphicon glyphicon-plus"></span> Tambah Pelatih
+              		</button>
+              	</center>
+              </a>
+            </div>
+
+            <div class="box-body">
+              <table id="dataphone" class="table table-bordered table-striped">
+                <thead align="center">
+                  <tr>
+                    <th >ID Pelatih</th>
+                    <th>Nama Pelatih</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Gelar</th>
+                    <th>Tempat, tanggal lahir</th>
+                    <th>Klasifikasi</th>
+                    <th>Alamat</th>
+                    <th>Pengrov Percasi</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                    {% if data_pelatih|length == 0 %}
+                  <tr>
+                    <td>Tidak ada data</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                    {% else %}
+                  
+                      {% for rowd in data_pelatih %}
+                    <tr>
+                   
+                    <td><a href="/view_pemain/{{rowd[0]}}">{{ rowd[2] }}</a></td>
+                    <td>{{ rowd[3] }}</td>
+                    <td>{{ rowd[4] }}</td>
+                    <td>
+                      {% if rowd[18] != 0 %}
+                      <p>GM</p>
+                      {% endif %}
+                      {% if rowd[19] != 0 %}
+                      <p>IM</p>
+                      {% endif %}
+                      {% if rowd[20] != 0 %}
+                      <p>FM</p>
+                      {% endif %}
+                      {% if rowd[21] != 0 %}
+                      <p>CM</p>
+                      {% endif %}
+                      {% if rowd[22] != 0 %}
+                      <p>WGM</p>
+                      {% endif %}
+                      {% if rowd[23] != 0 %}
+                      <p>WIM</p>
+                      {% endif %}
+                      {% if rowd[24] != 0 %}
+                      <p>WFM</p>
+                      {% endif %}
+                      {% if rowd[25] != 0 %}
+                      <p>WCM</p>
+                      {% endif %}
+                      {% if rowd[26] != 0 %}
+                      <p>MN</p>
+                      {% endif %}
+                      {% if rowd[27] != 0 %}
+                      <p>MP</p>
+                      {% endif %}
+                      {% if rowd[28] != 0 %}
+                      <p>MNW</p>
+                      {% endif %}
+                      {% if rowd[29] != 0 %}
+                      <p>MPW</p>
+                      {% endif %}
+
+
+                    </td>
+                    <td>{{ rowd[5] }}, {{ rowd[6] }}</td>
+                    <td>{{ rowd[7] }}</td>
+                    <td>{{ rowd[13] }}</td>
+                    <td>{{ rowd[8] }}</td>
+                    <td align="center">
+                      <a href="/update_pemain/{{ rowd[0]}}">
+                        <button type="button" class="btn btn-sm btn-warning btn-flat" title="Update"><span class="glyphicon glyphicon-pencil"></span></button>
+                      </a>
+                      <a href="/delete_pemain/{{ rowd[0]}}">
+                        <button type="button" class="btn btn-sm btn-danger btn-flat" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
+                      </a>
+                    </td>
+                  </tr>
+                      {% endfor %}
+                    {% endif%}   
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="content">
+          <div class="box box-primary">
+            <div class="box-header">
+              <a href="/add_wasit">
+              	<center>
+              		<button type="button" class="btn btn-primary btn-flat">
+              			<span class="glyphicon glyphicon-plus"></span> Tambah Wasit
+              		</button>
+              	</center>
+              </a>
+            </div>
+
+            <div class="box-body">
+              <table id="dataphone" class="table table-bordered table-striped">
+                <thead align="center">
+                  <tr>
+                    <th >ID Wasit</th>
+                    <th>Nama Wasit</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Gelar</th>
+                    <th>Tempat, tanggal lahir</th>
+                    <th>Klasifikasi</th>
+                    <th>Alamat</th>
+                    <th>Pengrov Percasi</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                    {% if data_wasit|length == 0 %}
+                  <tr>
+                    <td>Tidak ada data</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                    {% else %}
+                  
+                      {% for rowx in data_wasit %}
+                    <tr>
+                   
+                    <td><a href="/view_pemain/{{rowd[0]}}">{{ rowx[2] }}</a></td>
+                    <td>{{ rowx[3] }}</td>
+                    <td>{{ rowx[4] }}</td>
+                    <td>
+                      {% if rowx[18] != 0 %}
+                      <p>GM</p>
+                      {% endif %}
+                      {% if rowx[19] != 0 %}
+                      <p>IM</p>
+                      {% endif %}
+                      {% if rowx[20] != 0 %}
+                      <p>FM</p>
+                      {% endif %}
+                      {% if rowx[21] != 0 %}
+                      <p>CM</p>
+                      {% endif %}
+                      {% if rowx[22] != 0 %}
+                      <p>WGM</p>
+                      {% endif %}
+                      {% if rowx[23] != 0 %}
+                      <p>WIM</p>
+                      {% endif %}
+                      {% if rowx[24] != 0 %}
+                      <p>WFM</p>
+                      {% endif %}
+                      {% if rowx[25] != 0 %}
+                      <p>WCM</p>
+                      {% endif %}
+                      {% if rowx[26] != 0 %}
+                      <p>MN</p>
+                      {% endif %}
+                      {% if rowx[27] != 0 %}
+                      <p>MP</p>
+                      {% endif %}
+                      {% if rowx[28] != 0 %}
+                      <p>MNW</p>
+                      {% endif %}
+                      {% if rowx[29] != 0 %}
+                      <p>MPW</p>
+                      {% endif %}
+
+
+                    </td>
+                    <td>{{ rowx[5] }}, {{ rowx[6] }}</td>
+                    <td>{{ rowx[7] }}</td>
+                    <td>{{ rowx[13] }}</td>
+                    <td>{{ rowx[8] }}</td>
+                    <td align="center">
+                      <a href="/update_pemain/{{ rowx[0]}}">
+                        <button type="button" class="btn btn-sm btn-warning btn-flat" title="Update"><span class="glyphicon glyphicon-pencil"></span></button>
+                      </a>
+                      <a href="/delete_pemain/{{ rowx[0]}}">
+                        <button type="button" class="btn btn-sm btn-danger btn-flat" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
+                      </a>
+                    </td>
+                  </tr>
+                      {% endfor %}
+                    {% endif%}   
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+
       </div>
     </div>
 

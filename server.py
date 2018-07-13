@@ -264,29 +264,104 @@ def viewpemain(no):
 
 @app.route('/update_pemain/<int:id>/')
 def update_pemain(id):
+    provinsi = db.read(None)
     data = db.read_pemain(id)
     
     if len(data) == 0:
         return redirect(url_for('utama'))
     else:
         session['update'] = id
-        return render_template('update_pemain.html', data = data)
+        return render_template('update_pemain.html', data = data,provinsi = provinsi)
 
 @app.route('/update_pemain_save', methods = ['POST'])
 def updatepemain_save():
-    if request.method == 'POST' and request.form['update']:
+    if request.method == 'POST' and request.form['save']:
+        provinsi = db.read(request.form.get('pemprov'))
+        lihat = 'ndak_ada'
+
+        try:
+            f = request.files['photo']
+            f.save('user_photos/' + secure_filename(f.filename))
+            lihat = f.filename
+        except:
+            f = None
         
-        if db.update(session['update'], request.form):
-            flash('A phone number has been updated')
+
+        #Baca gelar2nya
+        if request.form.get('GM',None) == "GM":
+            GM = 1
+        else:
+            GM = 0
+        
+        if request.form.get('IM',None) == "GM":
+            IM = 1
+        else:
+            IM = 0
+
+        if request.form.get('FM',None) == "FM":
+            FM = 1
+        else:
+            FM = 0
+        
+        if request.form.get('CM',None) == "CM":
+            CM = 1
+        else:
+            CM = 0
+        
+        if request.form.get('WGM',None) == "WGM":
+            WGM = 1
+        else:
+            WGM = 0
+        
+        if request.form.get('WIM',None) == "GM":
+            WIM = 1
+        else:
+            WIM = 0
+        
+        if request.form.get('WFM',None) == "WFM":
+            WFM = 1
+        else:
+            WFM = 0
+        
+        if request.form.get('WCM',None) == "WCM":
+            WCM = 1
+        else:
+            WCM = 0
+        
+        if request.form.get('MN',None) == "MN":
+            MN = 1
+        else:
+            MN = 0
+        
+        if request.form.get('MP',None) == "MP":
+            MP = 1
+        else:
+            MP = 0
+        
+        if request.form.get('MNW',None) == "MNW":
+            MNW = 1
+        else:
+            MNW = 0
+        
+        if request.form.get('MPW',None) == "MPW":
+            MPW = 1
+        else:
+            MPW = 0
+
+        
+        gelar = [GM,IM,FM,CM,WGM,WIM,WFM,WCM,MN,MP,MNW,MPW]
+        
+        if db.update_pemain(session['update'], request.form,lihat,gelar,provinsi):
+            flash('Pemain telah berhasil di update')
            
         else:
-            flash('A phone number can not be updated')
+            flash('Kesalahan terjadi..')
         
         session.pop('update', None)
         
-        return redirect(url_for('index'))
+        return redirect(url_for('utama'))
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('utama'))
     
 @app.route('/delete_pemain/<int:id>/')
 def delete_pemain(id):
