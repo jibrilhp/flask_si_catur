@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   
-  <title>Sistem Informasi Catur - Tambah Pemain</title>
+  <title>Sistem Informasi Catur - Tambah Pelatih</title>
   
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/AdminLTE.min.css')}}">
@@ -33,17 +33,17 @@
           <div class="box box-info">
             <div class="box-header with-border">
             	<center>
-            		<h3 class="box-title">Tambah Pemain Catur</h3>
+            		<h3 class="box-title">Tambah Pelatih Catur</h3>
             	</center>
             </div>
 
-            <form class="form-horizontal" method="POST" action="/add_pemain_save" enctype="multipart/form-data">
+            <form class="form-horizontal" method="POST" action="/add_pelatih_save" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Nama</label>
+                  <label class="col-sm-2 control-label">Nama Pelatih</label>
 
                   <div class="col-sm-10">
-                    <input name="nama_pemain" type="text" class="form-control" placeholder="Nama Pemain" autocomplete="off" required>
+                    <input name="nama_pelatih" type="text" class="form-control" placeholder="Nama Pelatih" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -110,18 +110,15 @@
                   <label class="col-sm-2 control-label">Gelar</label>
 
                   <div class="col-sm-10">
-                    <input type="checkbox" name="GM" value="GM" />GM
-                    <input type="checkbox" name="IM" value="IM" />IM
-                    <input type="checkbox" name="FM" value="FM" />FM
-                    <input type="checkbox" name="CM" value="CM" />CM
-                    <input type="checkbox" name="WGM" value="WGM" />WGM
-                    <input type="checkbox" name="WIM" value="WIM" />WIM
-                    <input type="checkbox" name="WFM" value="WFM" />WFM
-                    <input type="checkbox" name="WCM" value="WCM" />WCM
-                    <input type="checkbox" name="MN" value="MN" />MN
-                    <input type="checkbox" name="MP" value="MP" />MP
-                    <input type="checkbox" name="MNW" value="WNW" />WNW
-                    <input type="checkbox" name="MPW" value="MPW" />MPW
+                    <input type="checkbox" name="PNP" value="PNP" />PNP
+                    <input type="checkbox" name="PNM" value="PNM" />PNM
+                    <input type="checkbox" name="PN" value="PN" />PN
+                    <input type="checkbox" name="INS" value="INS" />INS
+                    <input type="checkbox" name="FST" value="FST" />FST
+                    <input type="checkbox" name="FT" value="FT" />FT
+                    <input type="checkbox" name="FI" value="FI" />FI
+                    <input type="checkbox" name="NI" value="NI" />NI
+                    <input type="checkbox" name="DI" value="DI" />DI
                   </div>
                 </div>
 
@@ -146,6 +143,19 @@
 
                   <div class="col-sm-10">
                     <input name="rating_national" type="text" class="form-control" placeholder="Isi sesuai rating Anda skala Nasional" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Pemprov</label>
+
+                  <div class="col-sm-10">
+                    <select class="form-control" name="klasifikasi" id="klas">
+                     <option value="A">A</option> 
+                     <option value="B">B</option> 
+                     <option value="C">C</option> 
+                     <option value="D">D</option> 
+                  </select>
                   </div>
                 </div>
 

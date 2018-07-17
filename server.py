@@ -28,19 +28,21 @@ def utama():
         return redirect(url_for('login'))  
 
     data = db.read_pemain(None)
-
+    data_pelatih = db.read_pelatih(None)
+    data_wasit = db.read_wasit(None)
+    
     if session['sebagai'] == 0:
         
-        return render_template('utama.html', data = data) #utama, sebagai admin bisa edit dan ngatur semua
+        return render_template('utama.html', data = data,data_pelatih = data_pelatih, data_wasit = data_wasit ) #utama, sebagai admin bisa edit dan ngatur semua
 
     if session['sebagai'] == 1:
         return render_template('utama_pemain.html',data = data)
     
     if session['sebagai'] == 2:
-        return render_template('utama_pelatih.html',data = data)
+        return render_template('utama_pelatih.html',data = data_pelatih)
     
     if session['sebagai'] == 3:
-        return render_template('utama_wasit.html',data = data)
+        return render_template('utama_wasit.html',data = data_wasit)
     
     
     return render_template('utama.html', data = data)
@@ -135,7 +137,9 @@ def add_wasit():
     except:
         flash('silahkan login terlebih dahulu!')
         return redirect(url_for('login'))  
-    return render_template('add_wasit.html')
+    
+    provinsi = db.read(None)
+    return render_template('add_wasit.html',provinsi = provinsi)
 
 @app.route('/add_pelatih')
 def add_pelatih():
@@ -146,7 +150,169 @@ def add_pelatih():
     except:
         flash('silahkan login terlebih dahulu!')
         return redirect(url_for('login'))  
-    return render_template('add_pelatih.html')
+
+    provinsi = db.read(None)
+    return render_template('add_pelatih.html',provinsi = provinsi)
+
+@app.route('/add_wasit_save',methods= ['POST'])
+def add_wasit_save():
+    try:
+        if session['login_success'] != True:
+            flash('silahkan login terlebih dahulu!')
+            return redirect(url_for('login'))  
+    except:
+        flash('silahkan login terlebih dahulu!')
+        return redirect(url_for('login')) 
+    
+    if request.method == 'POST' and request.form['save']:
+        f = request.files['photo']
+        f.save('user_photos/' + secure_filename(f.filename))
+        lihat = f.filename
+
+        #Baca gelar2nya
+
+        if request.form.get('WNP',None) == 'WNP':
+            WNP = 1
+        else:
+            WNP = 0
+        
+        if request.form.get('WNM',None) == 'WNM':
+            WNM = 1
+        else:
+            WNM = 0
+        
+        if request.form.get('WN',None) == 'WN':
+            WN = 1
+        else:
+            WN = 0
+        
+        if request.form.get('FA',None) == 'FA':
+            FA = 1
+        else:
+            FA = 0
+        
+        if request.form.get('IA',None) == 'IA':
+            IA = 1
+        else:
+            IA = 0
+        
+        if request.form.get('IO',None) == 'IO':
+            IO = 1
+        else:
+            IO = 0
+        
+        isi =''
+        terkini = db.up_wasit()
+        if terkini != []:
+            for xyr in terkini:
+                isi = xyr[0]
+            sekarang = "{0:0>3}".format(isi)
+        else:
+            sekarang = "001"
+
+        tgl = request.form.get('tanggal_lahir')
+        id_wasit = request.form.get('pemprov') + "/" + tgl[2:4] + sekarang       
+        gelar = [id_wasit,WNP,WNM,WN,FA,IA,IO]
+        
+        
+        if db.addwasit(request.form,lihat,id_wasit,gelar):   
+            flash("Wasit berhasil ditambahkan")
+        else:
+            flash("Kesalahan terjadi")
+        return redirect(url_for('utama'))
+    else:
+        return redirect(url_for('utama'))
+
+        
+        
+
+
+
+
+@app.route('/add_pelatih_save',methods = ['POST'])
+def add_pelatih_save():
+    try:
+        if session['login_success'] != True:
+            flash('silahkan login terlebih dahulu!')
+            return redirect(url_for('login'))  
+    except:
+        flash('silahkan login terlebih dahulu!')
+        return redirect(url_for('login'))  
+    
+    if request.method == 'POST' and request.form['save']:
+        f = request.files['photo']
+        f.save('user_photos/' + secure_filename(f.filename))
+        lihat = f.filename
+
+        #Baca gelar2nya
+
+        if request.form.get('PNP',None) == "PNP":
+            PNP = 1
+        else:
+            PNP = 0
+
+        if request.form.get('PNM',None) == "PNM":
+            PNM = 1
+        else:
+            PNM = 0
+
+        if request.form.get('PN',None) == "PN":
+            PN = 1
+        else:
+            PN = 0
+
+        if request.form.get('INS',None) == "INS":
+            INS = 1
+        else:
+            INS = 0
+
+        if request.form.get('FST',None) == "FST":
+            FST = 1
+        else:
+            FST = 0
+
+        if request.form.get('FT',None) == "FT":
+            FT = 1
+        else:
+            FT = 0
+
+        if request.form.get('FI',None) == "FI":
+            FI = 1
+        else:
+            FI = 0
+        
+        if request.form.get('NI',None) == "NI":
+            NI = 1
+        else:
+            NI = 0
+
+        if request.form.get('DI',None) == "DI":
+            DI = 1
+        else:
+            DI = 0
+
+        isi =''
+        terkini = db.up_pelatih()
+        if terkini != []:
+            for xyr in terkini:
+                isi = xyr[0]
+            sekarang = "{0:0>3}".format(isi)
+        else:
+            sekarang = "001"
+
+        tgl = request.form.get('tanggal_lahir')
+        id_pelatih = request.form.get('pemprov') + "/" + tgl[2:4] + sekarang       
+        gelar = [id_pelatih,PNP,PNM,PN,INS,FST,FT,FI,NI,DI]
+        
+        
+        if db.addpelatih(request.form,lihat,id_pelatih,gelar):   
+            flash("Pelatih berhasil ditambahkan")
+        else:
+            flash("Kesalahan terjadi")
+        return redirect(url_for('utama'))
+    else:
+        return redirect(url_for('utama'))
+
 
 @app.route('/add_pemain_save', methods = ['POST', 'GET'])
 def addpemain():
@@ -260,6 +426,145 @@ def viewpemain(no):
         return render_template('view_pemain.html' ,data = data)
 
 
+@app.route('/update_pelatih/<int:id>')
+def update_pelatih(id):
+    provinsi = db.read(None)
+    data = db.read_pelatih(id)
+    
+    if len(data) == 0:
+        return redirect(url_for('utama'))
+    else:
+        session['update'] = id
+        return render_template('update_pelatih.html', data = data,provinsi = provinsi)
+
+@app.route('/update_wasit/<int:id>')
+def update_wasit(id):
+    provinsi = db.read(None)
+    data = db.read_wasit(id)
+    
+    if len(data) == 0:
+        return redirect(url_for('utama'))
+    else:
+        session['update'] = id
+        return render_template('update_wasit.html', data = data,provinsi = provinsi)
+
+@app.route('/update_pelatih_save',methods=['POST'])
+def update_pelatih_save():
+    if request.method == 'POST' and request.form['save']:
+        f = request.files['photo']
+        f.save('user_photos/' + secure_filename(f.filename))
+        lihat = f.filename
+
+        #Baca gelar2nya
+
+        if request.form.get('WNP',None) == 'WNP':
+            WNP = 1
+        else:
+            WNP = 0
+        
+        if request.form.get('WNM',None) == 'WNM':
+            WNM = 1
+        else:
+            WNM = 0
+        
+        if request.form.get('WN',None) == 'WN':
+            WN = 1
+        else:
+            WN = 0
+        
+        if request.form.get('FA',None) == 'FA':
+            FA = 1
+        else:
+            FA = 0
+        
+        if request.form.get('IA',None) == 'IA':
+            IA = 1
+        else:
+            IA = 0
+        
+        if request.form.get('IO',None) == 'IO':
+            IO = 1
+        else:
+            IO = 0
+       
+        gelar = [WNP,WNM,WN,FA,IA,IO]
+        
+        
+        if db.update_pelatih(session['update'], request.form,lihat,gelar,provinsi):
+            flash("Wasit berhasil diupdate")
+        else:
+            flash("Kesalahan terjadi")
+        return redirect(url_for('utama'))
+    else:
+        return redirect(url_for('utama'))
+
+
+
+@app.route('/update_wasit_save',methods=['POST'])
+def update_wasit_save():
+    if request.method == 'POST' and request.form['save']:
+        f = request.files['photo']
+        f.save('user_photos/' + secure_filename(f.filename))
+        lihat = f.filename
+
+        #Baca gelar2nya
+
+        if request.form.get('WNP',None) == 'WNP':
+            WNP = 1
+        else:
+            WNP = 0
+        
+        if request.form.get('WNM',None) == 'WNM':
+            WNM = 1
+        else:
+            WNM = 0
+        
+        if request.form.get('WN',None) == 'WN':
+            WN = 1
+        else:
+            WN = 0
+        
+        if request.form.get('FA',None) == 'FA':
+            FA = 1
+        else:
+            FA = 0
+        
+        if request.form.get('IA',None) == 'IA':
+            IA = 1
+        else:
+            IA = 0
+        
+        if request.form.get('IO',None) == 'IO':
+            IO = 1
+        else:
+            IO = 0
+        
+       
+        gelar = [WNP,WNM,WN,FA,IA,IO]
+        
+        
+        if db.update_pelatih(session['update'], request.form,lihat,gelar,provinsi):   
+            flash("Wasit berhasil diupdate")
+        else:
+            flash("Kesalahan terjadi")
+        return redirect(url_for('utama'))
+    else:
+        return redirect(url_for('utama'))
+
+@app.route('/mutasi_pemain/')
+def mutasi_pemain():
+    data = db.mutasi_pemain()
+    return render_template('mutasi_pemain.html', data = data)
+
+@app.route('/mutasi_wasit/')
+def mutasi_wasit():
+    data = db.mutasi_wasit()
+    return render_template('mutasi_wasit.html', data = data)
+
+@app.route('/mutasi_pelatih/')
+def mutasi_pelatih():
+    data = db.mutasi_pelatih()
+    return render_template('mutasi_pelatih.html', data = data)
 
 
 @app.route('/update_pemain/<int:id>/')
@@ -374,7 +679,27 @@ def delete_pemain(id):
         flash('kesalahan terjadi')
         return redirect(url_for('utama'))
 
+@app.route('/delete_pelatih/<int:id>/')
+def delete_pelatih(id):
+    data = db.delete_pelatih(id)
 
+    if data:
+        flash('Data telah dihapus')
+        return redirect(url_for('utama'))
+    else:
+        flash('kesalahan terjadi')
+        return redirect(url_for('utama'))
+        
+@app.route('/delete_wasit/<int:id>')
+def delete_wasit(id):
+    data = db.delete_wasit(id)
+
+    if data:
+        flash('data telah dihapus')
+        return redirect(url_for('utama'))
+    else:
+        flash('kesalahan terjadi')
+        return redirect(url_for('utama'))
 
 @app.route('/logout')
 def logout():

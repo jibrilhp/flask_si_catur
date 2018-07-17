@@ -96,61 +96,61 @@
                   </tr>
                     {% else %}
                   
-                      {% for row in data %}
+                      {% for coba in data %}
                     <tr>
                    
-                    <td><a href="/view_pemain/{{row[0]}}">{{ row[2] }}</a></td>
-                    <td>{{ row[3] }}</td>
-                    <td>{{ row[4] }}</td>
+                    <td><a href="/view_pemain/{{coba[0]}}">{{ coba[2] }}</a></td>
+                    <td>{{ coba[3] }}</td>
+                    <td>{{ coba[4] }}</td>
                     <td>
-                      {% if row[18] != 0 %}
+                      {% if coba[18] != 0 %}
                       <p>GM</p>
                       {% endif %}
-                      {% if row[19] != 0 %}
+                      {% if coba[19] != 0 %}
                       <p>IM</p>
                       {% endif %}
-                      {% if row[20] != 0 %}
+                      {% if coba[20] != 0 %}
                       <p>FM</p>
                       {% endif %}
-                      {% if row[21] != 0 %}
+                      {% if coba[21] != 0 %}
                       <p>CM</p>
                       {% endif %}
-                      {% if row[22] != 0 %}
+                      {% if coba[22] != 0 %}
                       <p>WGM</p>
                       {% endif %}
-                      {% if row[23] != 0 %}
+                      {% if coba[23] != 0 %}
                       <p>WIM</p>
                       {% endif %}
-                      {% if row[24] != 0 %}
+                      {% if coba[24] != 0 %}
                       <p>WFM</p>
                       {% endif %}
-                      {% if row[25] != 0 %}
+                      {% if coba[25] != 0 %}
                       <p>WCM</p>
                       {% endif %}
-                      {% if row[26] != 0 %}
+                      {% if coba[26] != 0 %}
                       <p>MN</p>
                       {% endif %}
-                      {% if row[27] != 0 %}
+                      {% if coba[27] != 0 %}
                       <p>MP</p>
                       {% endif %}
-                      {% if row[28] != 0 %}
+                      {% if coba[28] != 0 %}
                       <p>MNW</p>
                       {% endif %}
-                      {% if row[29] != 0 %}
+                      {% if coba[29] != 0 %}
                       <p>MPW</p>
                       {% endif %}
 
 
                     </td>
-                    <td>{{ row[5] }}, {{ row[6] }}</td>
-                    <td>{{ row[7] }}</td>
-                    <td>{{ row[13] }}</td>
-                    <td>{{ row[8] }}</td>
+                    <td>{{ coba[5] }}, {{ coba[6] }}</td>
+                    <td>{{ coba[7] }}</td>
+                    <td>{{ coba[13] }}</td>
+                    <td>{{ coba[8] }}</td>
                     <td align="center">
-                      <a href="/update_pemain/{{ row[0]}}">
+                      <a href="/update_pemain/{{ coba[0]}}">
                         <button type="button" class="btn btn-sm btn-warning btn-flat" title="Update"><span class="glyphicon glyphicon-pencil"></span></button>
                       </a>
-                      <a href="/delete_pemain/{{ row[0]}}">
+                      <a href="/delete_pemain/{{ coba[0]}}">
                         <button type="button" class="btn btn-sm btn-danger btn-flat" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
                       </a>
                     </td>
@@ -205,62 +205,54 @@
                     <td></td>
                   </tr>
                     {% else %}
-                  
-                      {% for rowd in data_pelatih %}
+                      
+                      {% for coba in data_pelatih %}
                     <tr>
                    
-                    <td><a href="/view_pemain/{{rowd[0]}}">{{ rowd[2] }}</a></td>
-                    <td>{{ rowd[3] }}</td>
-                    <td>{{ rowd[4] }}</td>
+                    <td><a href="/view_pelatih/{{coba[0]}}">{{ coba[2] }}</a></td>
+                    <td>{{ coba[3] }}</td>
+                    <td>{{ coba[4] }}</td>
                     <td>
-                      {% if rowd[18] != 0 %}
-                      <p>GM</p>
+                      {% if coba[18] != 0 %}
+                      <p>PNP</p>
                       {% endif %}
-                      {% if rowd[19] != 0 %}
-                      <p>IM</p>
+                      {% if coba[19] != 0 %}
+                      <p>PNM</p>
                       {% endif %}
-                      {% if rowd[20] != 0 %}
-                      <p>FM</p>
+                      {% if coba[20] != 0 %}
+                      <p>PN</p>
                       {% endif %}
-                      {% if rowd[21] != 0 %}
-                      <p>CM</p>
+                      {% if coba[21] != 0 %}
+                      <p>INS</p>
                       {% endif %}
-                      {% if rowd[22] != 0 %}
-                      <p>WGM</p>
+                      {% if coba[22] != 0 %}
+                      <p>FST</p>
                       {% endif %}
-                      {% if rowd[23] != 0 %}
-                      <p>WIM</p>
+                      {% if coba[23] != 0 %}
+                      <p>FT</p>
                       {% endif %}
-                      {% if rowd[24] != 0 %}
-                      <p>WFM</p>
+                      {% if coba[24] != 0 %}
+                      <p>FI</p>
                       {% endif %}
-                      {% if rowd[25] != 0 %}
-                      <p>WCM</p>
+                      {% if coba[25] != 0 %}
+                      <p>NI</p>
                       {% endif %}
-                      {% if rowd[26] != 0 %}
-                      <p>MN</p>
+                      {% if coba[26] != 0 %}
+                      <p>DI</p>
                       {% endif %}
-                      {% if rowd[27] != 0 %}
-                      <p>MP</p>
-                      {% endif %}
-                      {% if rowd[28] != 0 %}
-                      <p>MNW</p>
-                      {% endif %}
-                      {% if rowd[29] != 0 %}
-                      <p>MPW</p>
-                      {% endif %}
+                     
 
 
                     </td>
-                    <td>{{ rowd[5] }}, {{ rowd[6] }}</td>
-                    <td>{{ rowd[7] }}</td>
-                    <td>{{ rowd[13] }}</td>
-                    <td>{{ rowd[8] }}</td>
+                    <td>{{ coba[5] }}, {{ coba[6] }}</td>
+                    <td>{{ coba[7] }}</td>
+                    <td>{{ coba[8] }}</td>
+                    <td>{{ coba[13] }}</td>
                     <td align="center">
-                      <a href="/update_pemain/{{ rowd[0]}}">
+                      <a href="/update_pelatih/{{ coba[0]}}">
                         <button type="button" class="btn btn-sm btn-warning btn-flat" title="Update"><span class="glyphicon glyphicon-pencil"></span></button>
                       </a>
-                      <a href="/delete_pemain/{{ rowd[0]}}">
+                      <a href="/delete_pelatih/{{ coba[0]}}">
                         <button type="button" class="btn btn-sm btn-danger btn-flat" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
                       </a>
                     </td>
@@ -316,61 +308,41 @@
                   </tr>
                     {% else %}
                   
-                      {% for rowx in data_wasit %}
+                      {% for coba in data_wasit %}
                     <tr>
-                   
-                    <td><a href="/view_pemain/{{rowd[0]}}">{{ rowx[2] }}</a></td>
-                    <td>{{ rowx[3] }}</td>
-                    <td>{{ rowx[4] }}</td>
+                    <td><a href="/view_wasit/{{coba[0]}}">{{ coba[2] }}</a></td>
+                    <td>{{ coba[3] }}</td>
+                    <td>{{ coba[4] }}</td>
                     <td>
-                      {% if rowx[18] != 0 %}
-                      <p>GM</p>
+                      {% if coba[18] != 0 %}
+                      <p>WNP</p>
                       {% endif %}
-                      {% if rowx[19] != 0 %}
-                      <p>IM</p>
+                      {% if coba[19] != 0 %}
+                      <p>WNM</p>
                       {% endif %}
-                      {% if rowx[20] != 0 %}
-                      <p>FM</p>
+                      {% if coba[20] != 0 %}
+                      <p>WN</p>
                       {% endif %}
-                      {% if rowx[21] != 0 %}
-                      <p>CM</p>
+                      {% if coba[21] != 0 %}
+                      <p>FA</p>
                       {% endif %}
-                      {% if rowx[22] != 0 %}
-                      <p>WGM</p>
+                      {% if coba[22] != 0 %}
+                      <p>IA</p>
                       {% endif %}
-                      {% if rowx[23] != 0 %}
-                      <p>WIM</p>
+                      {% if coba[23] != 0 %}
+                      <p>IO</p>
                       {% endif %}
-                      {% if rowx[24] != 0 %}
-                      <p>WFM</p>
-                      {% endif %}
-                      {% if rowx[25] != 0 %}
-                      <p>WCM</p>
-                      {% endif %}
-                      {% if rowx[26] != 0 %}
-                      <p>MN</p>
-                      {% endif %}
-                      {% if rowx[27] != 0 %}
-                      <p>MP</p>
-                      {% endif %}
-                      {% if rowx[28] != 0 %}
-                      <p>MNW</p>
-                      {% endif %}
-                      {% if rowx[29] != 0 %}
-                      <p>MPW</p>
-                      {% endif %}
-
-
+                      
                     </td>
-                    <td>{{ rowx[5] }}, {{ rowx[6] }}</td>
-                    <td>{{ rowx[7] }}</td>
-                    <td>{{ rowx[13] }}</td>
-                    <td>{{ rowx[8] }}</td>
+                    <td>{{ coba[5] }}, {{ coba[6] }}</td>
+                    <td>{{ coba[8] }}</td>
+                    <td>{{ coba[7] }}</td>
+                    <td>{{ coba[13] }}</td>
                     <td align="center">
-                      <a href="/update_pemain/{{ rowx[0]}}">
+                      <a href="/update_wasit/{{ coba[0]}}">
                         <button type="button" class="btn btn-sm btn-warning btn-flat" title="Update"><span class="glyphicon glyphicon-pencil"></span></button>
                       </a>
-                      <a href="/delete_pemain/{{ rowx[0]}}">
+                      <a href="/delete_wasit/{{ coba[0]}}">
                         <button type="button" class="btn btn-sm btn-danger btn-flat" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
                       </a>
                     </td>
